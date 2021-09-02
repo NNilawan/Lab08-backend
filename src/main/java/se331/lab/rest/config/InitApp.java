@@ -5,13 +5,16 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import se331.lab.rest.entity.Event;
+import se331.lab.rest.entity.Organization;
 import se331.lab.rest.repository.EventRepository;
+import se331.lab.rest.repository.OrganizationRepository;
 
 @Component
 public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
     @Autowired
     EventRepository eventRepository;
-
+    @Autowired
+    OrganizationRepository organizationRepository;
     @Override
     public void onApplicationEvent(ApplicationReadyEvent applicationReadyEvent) {
         eventRepository.save(Event.builder()
@@ -50,5 +53,35 @@ public class InitApp implements ApplicationListener<ApplicationReadyEvent> {
                 .time("10.00am - 6.00 pm.")
                 .petAllowed(true)
                 .organizer("Chiang Mai Municipality").build());
+
+
+        organizationRepository.save(Organization.builder()
+                .category("Software")
+                .title("Google")
+                .description("Where you can search knowledge")
+                .location("USA")
+                .plantAllowed(false)
+                .organizer("Google Co.").build());
+        organizationRepository.save(Organization.builder()
+                .category("Entertain")
+                .title("Youtube")
+                .description("Where you can search music")
+                .location("Australia")
+                .plantAllowed(true)
+                .organizer("Youtube Co.").build());
+        organizationRepository.save(Organization.builder()
+                .category("Software")
+                .title("Microsoft")
+                .description("Where you can update OS")
+                .location("UK")
+                .plantAllowed(true)
+                .organizer("Microsoft Co.").build());
+        organizationRepository.save(Organization.builder()
+                .category("Entertain")
+                .title("Epic Game")
+                .description("Where you can play game")
+                .location("Canada")
+                .plantAllowed(true)
+                .organizer("Epic Game Co.").build());
     }
 }
